@@ -1,7 +1,7 @@
 ## Подключение к PostGre с помощью JDBC
 
 ### Установка драйвера 
-Для начала нужно установить (драйвер)[https://jdbc.postgresql.org/download/postgresql-42.7.4.jar] 
+Для начала нужно установить [драйвер](https://jdbc.postgresql.org/download/postgresql-42.7.4.jar) 
 
 ### Создание класса для подключение к БД 
 
