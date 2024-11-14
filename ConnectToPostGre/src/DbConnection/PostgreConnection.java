@@ -25,27 +25,41 @@ public class PostgreConnection {
 
     public void GetUsers(){
         try{
-            Connection conn =  conn= DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+dbName,username,password);
+            Class.forName("org.postgresql.Driver");
+            Connection conn= DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+dbName,username,password);
 
             if(conn!=null){
                 Statement stmt = conn.createStatement();
-                String selectSQL = "SELECT * FROM User";
-              ResultSet resultSet
-                    = stmt.executeQuery(selectSQL);
+                String selectSQL = "SELECT * FROM \"User\" JOIN \"Role\" ON \"Role\".\"Id\" = \"User\".\"RoleId\""; //"SELECT * FROM User"
+                ResultSet resultSet = stmt.executeQuery(selectSQL);
 
             while (resultSet.next()) {
-                System.out.println(
-                        "ID пользователя: " + resultSet.getInt("Id")
-                                + ", Имя: "
-                                + resultSet.getString("Name"));
+
+                int id = resultSet.getInt("Id");
+                String name = resultSet.getString("Name");
+                String role = resultSet.getString("RoleId");
+
             }
 
             // Закрытие соединения
             conn.close();
             }
         }catch (Exception e){
+            System.out.println("Error");
             System.out.println(e);
         }
     }
+    public void GetData(String sqlRequest){
+        try{
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+dbName,username,password);
 
+            ResultSet resultSet = conn.createStatement().executeQuery(sqlRequest);
+            while (resultSet.next()){
+               
+            }
+        }catch (Exception e){
+            System.out.println("Error "+e);
+        }
+    }
 }
